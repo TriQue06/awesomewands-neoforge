@@ -17,9 +17,10 @@ public class AwesomeCreativeModeTabs {
 
     public static final Supplier<CreativeModeTab> ABYSS_ITEMS_TAB = CREATIVE_MODE_TAB.register("awesomeitemstab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(AwesomeItems.ICE_WAND.get()))
-                    .title(Component.translatable("creativetab.awesomewands.items"))
+                    .title(Component.translatable("tab1"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(AwesomeItems.ICE_WAND);
+                        output.accept(AwesomeItems.THUNDER_WAND);
                         output.accept(AwesomeBlocks.MAGICAL_CUBE);
                     }).build());
 

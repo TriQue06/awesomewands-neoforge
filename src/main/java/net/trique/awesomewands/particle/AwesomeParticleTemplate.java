@@ -7,8 +7,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class IceBeamParticle extends HugeExplosionParticle {
-    protected IceBeamParticle(ClientLevel level, double x, double y, double z, double quadSizeMultiplier, SpriteSet sprites) {
+public class AwesomeParticleTemplate extends HugeExplosionParticle {
+    protected AwesomeParticleTemplate(ClientLevel level, double x, double y, double z, double quadSizeMultiplier, SpriteSet sprites) {
         super(level, x, y, z, quadSizeMultiplier, sprites);
         this.lifetime = 16;
         this.quadSize = 1.5F;
@@ -24,7 +24,7 @@ public class IceBeamParticle extends HugeExplosionParticle {
         }
 
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new IceBeamParticle(level, x, y, z, xSpeed, this.sprites);
+            return new AwesomeParticleTemplate(level, x, y, z, xSpeed, this.sprites);
         }
     }
 }

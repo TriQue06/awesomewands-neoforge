@@ -27,6 +27,7 @@ public class AwesomeItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         handheldItem(AwesomeItems.ICE_WAND);
+        handheldItem(AwesomeItems.THUNDER_WAND);
     }
 
     private ItemModelBuilder handheldItem(DeferredItem<?> item) {

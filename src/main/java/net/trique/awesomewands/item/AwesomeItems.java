@@ -12,6 +12,9 @@ public class AwesomeItems {
     public static final DeferredItem<Item> ICE_WAND = ITEMS.register("ice_wand",
             () -> new IceWandItem(new Item.Properties().stacksTo(1)));
 
+    public static final DeferredItem<Item> THUNDER_WAND = ITEMS.register("thunder_wand",
+            () -> new ThunderWandItem(new Item.Properties().stacksTo(1)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
