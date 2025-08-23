@@ -21,6 +21,7 @@ public class AwesomeCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(AwesomeItems.ICE_WAND);
                         output.accept(AwesomeItems.THUNDER_WAND);
+                        output.accept(AwesomeItems.FIRE_WAND);
                         output.accept(AwesomeBlocks.MAGICAL_CUBE);
                     }).build());
 

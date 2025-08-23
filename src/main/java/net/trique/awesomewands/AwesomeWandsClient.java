@@ -34,5 +34,6 @@ public class AwesomeWandsClient {
     static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(AwesomeParticles.ICE_BEAM.get(), AwesomeParticleTemplate.Provider::new);
         event.registerSpriteSet(AwesomeParticles.THUNDER_BEAM.get(), AwesomeParticleTemplate.Provider::new);
+        event.registerSpriteSet(AwesomeParticles.FIRE_BEAM.get(), AwesomeParticleTemplate.Provider::new);
     }
 }

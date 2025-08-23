@@ -28,6 +28,7 @@ public class AwesomeItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         handheldItem(AwesomeItems.ICE_WAND);
         handheldItem(AwesomeItems.THUNDER_WAND);
+        handheldItem(AwesomeItems.FIRE_WAND);
     }
 
     private ItemModelBuilder handheldItem(DeferredItem<?> item) {
