@@ -1,4 +1,4 @@
-package net.trique.awesomewands.item;
+package net.trique.awesomewands.item.wands;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -8,8 +8,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -26,8 +24,8 @@ import net.trique.awesomewands.particle.AwesomeParticles;
 import java.util.HashSet;
 import java.util.Set;
 
-public class IceWandItem extends Item {
-    public IceWandItem(Properties props) {
+public class VampiricWandItem extends Item {
+    public VampiricWandItem(Properties props) {
         super(props.attributes(createAttributeModifiers()));
     }
 
@@ -41,7 +39,7 @@ public class IceWandItem extends Item {
 
     @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return repair.is(Items.ICE);
+        return repair.is(Items.ICE); // istersen elemental shard'a çevirebiliriz
     }
 
     @Override
@@ -63,7 +61,7 @@ public class IceWandItem extends Item {
         super.onUseTick(level, user, stack, remainingUseTicks);
         if (getUseDuration(stack, user) - remainingUseTicks == 1) {
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.AMETHYST_BLOCK_FALL, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.PLAYERS, 3.0F, 1.0F);
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 3.0F, 1.0F);
         }
@@ -76,7 +74,7 @@ public class IceWandItem extends Item {
 
             ItemStack chargeResource = findChargeResource(player);
             if (creative || !chargeResource.isEmpty()) {
-                spawnIceBeam(level, user);
+                spawnVampiricBeam(level, user);
 
                 if (!creative) {
                     chargeResource.shrink(1);
@@ -91,17 +89,16 @@ public class IceWandItem extends Item {
     private ItemStack findChargeResource(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.is(Items.AMETHYST_SHARD)) return s;
+            if (s.is(Items.AMETHYST_SHARD)) return s; // yakıt
         }
         return ItemStack.EMPTY;
     }
 
-    private void spawnIceBeam(Level level, LivingEntity user) {
-        level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 5.0F, 1.0F);
+    private void spawnVampiricBeam(Level level, LivingEntity user) {
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
                 SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 5.0F, 1.0F);
-
+        level.playSound(null, user.getX(), user.getY(), user.getZ(),
+                SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.PLAYERS, 3.5F, 0.9F);
 
         final float heightOffset = 1.6f;
         final int distance = 20;
@@ -117,7 +114,7 @@ public class IceWandItem extends Item {
             Vec3 p = source.add(dir.scale(i));
 
             if (level instanceof ServerLevel sl) {
-                sl.sendParticles(AwesomeParticles.ICE_BEAM.get(), p.x, p.y, p.z, 1, 0, 0, 0, 0);
+                sl.sendParticles(AwesomeParticles.FIRE_BEAM.get(), p.x, p.y, p.z, 1, 0, 0, 0, 0);
             }
 
             BlockPos bp = BlockPos.containing(p);
@@ -129,31 +126,28 @@ public class IceWandItem extends Item {
         hit.remove(user);
 
         DamageSources sources = level.damageSources();
+        float totalDealt = 0.0F;
+        final float damagePerTarget = 5.0F;
+
         for (Entity e : hit) {
             if (e instanceof LivingEntity living) {
-                living.hurt(sources.magic(), 5.0F);
+                boolean applied = living.hurt(sources.magic(), damagePerTarget);
+                if (applied) {
+                    totalDealt += damagePerTarget;
+                }
 
                 double resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-                double vertical = 0.5 * (1.0 - resist);
-                double horizontal = 2.0 * (1.0 - resist);
+                double vertical = 0.4 * (1.0 - resist);
+                double horizontal = 1.6 * (1.0 - resist);
                 living.push(dir.x * horizontal, dir.y * vertical, dir.z * horizontal);
                 living.hasImpulse = true;
-
-                living.addEffect(new MobEffectInstance(
-                        MobEffects.MOVEMENT_SLOWDOWN,
-                        60, 9
-                ));
-
-                if (!level.isClientSide && living instanceof Player hitPlayer) {
-                    int add = 100;
-                    int cap = Math.max(0, hitPlayer.getTicksRequiredToFreeze() - 5);
-                    int newVal = Math.min(hitPlayer.getTicksFrozen() + add, cap);
-                    hitPlayer.setTicksFrozen(newVal);
-
-                    level.playSound(null, hitPlayer.getX(), hitPlayer.getY(), hitPlayer.getZ(),
-                            SoundEvents.POWDER_SNOW_BREAK, SoundSource.PLAYERS, 0.8F, 1.0F);
-                }
             }
+        }
+
+        if (totalDealt > 0.0F) {
+            user.heal(totalDealt * 0.5F);
+            level.playSound(null, user.getX(), user.getY(), user.getZ(),
+                    SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 }
