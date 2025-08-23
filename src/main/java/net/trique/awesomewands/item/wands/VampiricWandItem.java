@@ -39,7 +39,7 @@ public class VampiricWandItem extends Item {
 
     @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return repair.is(Items.ICE); // istersen elemental shard'a çevirebiliriz
+        return repair.is(Items.ICE);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class VampiricWandItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return 20; // 1 saniye
+        return 20;
     }
 
     @Override
@@ -61,9 +61,9 @@ public class VampiricWandItem extends Item {
         super.onUseTick(level, user, stack, remainingUseTicks);
         if (getUseDuration(stack, user) - remainingUseTicks == 1) {
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    SoundEvents.ALLAY_AMBIENT_WITH_ITEM, SoundSource.PLAYERS, 5.0F, 1.0F);
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 5.0F, 1.0F);
         }
     }
 
@@ -98,7 +98,7 @@ public class VampiricWandItem extends Item {
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
                 SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 5.0F, 1.0F);
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.PLAYERS, 3.5F, 0.9F);
+                SoundEvents.ALLAY_DEATH, SoundSource.PLAYERS, 5.0F, 1.0F);
 
         final float heightOffset = 1.6f;
         final int distance = 20;
@@ -114,7 +114,7 @@ public class VampiricWandItem extends Item {
             Vec3 p = source.add(dir.scale(i));
 
             if (level instanceof ServerLevel sl) {
-                sl.sendParticles(AwesomeParticles.FIRE_BEAM.get(), p.x, p.y, p.z, 1, 0, 0, 0, 0);
+                sl.sendParticles(AwesomeParticles.VAMPIRIC_BEAM.get(), p.x, p.y, p.z, 1, 0, 0, 0, 0);
             }
 
             BlockPos bp = BlockPos.containing(p);
@@ -146,8 +146,7 @@ public class VampiricWandItem extends Item {
 
         if (totalDealt > 0.0F) {
             user.heal(totalDealt * 0.5F);
-            level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
+            //level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.AMBIENT_CAVE, SoundSource.PLAYERS, 5.0F, 1.0F);
         }
     }
 }

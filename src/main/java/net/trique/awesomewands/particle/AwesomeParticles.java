@@ -22,6 +22,9 @@ public class AwesomeParticles {
     public static final Supplier<SimpleParticleType> FIRE_BEAM =
             PARTICLE_TYPES.register("fire_beam", () -> new SimpleParticleType(true));
 
+    public static final Supplier<SimpleParticleType> VAMPIRIC_BEAM =
+            PARTICLE_TYPES.register("vampiric_beam", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }
