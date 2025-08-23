@@ -2,17 +2,13 @@ package net.trique.awesomewands.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -35,12 +31,6 @@ public class FireWandItem extends Item {
 
     private static ItemAttributeModifiers createAttributeModifiers() {
         ItemAttributeModifiers.Builder b = ItemAttributeModifiers.builder();
-        b.add(Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 3.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
-        b.add(Attributes.ATTACK_SPEED,
-                new AttributeModifier(BASE_ATTACK_SPEED_ID, 0.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
         return b.build();
     }
 
@@ -71,7 +61,7 @@ public class FireWandItem extends Item {
         super.onUseTick(level, user, stack, remainingUseTicks);
         if (getUseDuration(stack, user) - remainingUseTicks == 1) {
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.CAMPFIRE_CRACKLE, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    SoundEvents.FIREWORK_ROCKET_BLAST, SoundSource.PLAYERS, 3.0F, 1.0F);
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 3.0F, 1.0F);
         }
@@ -100,13 +90,12 @@ public class FireWandItem extends Item {
     private ItemStack findChargeResource(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.is(Items.YELLOW_DYE)) return s;
+            if (s.is(Items.AMETHYST_SHARD)) return s;
         }
         return ItemStack.EMPTY;
     }
 
     private void spawnFireBeam(Level level, LivingEntity user) {
-        // mevcut seslerin kalsın istedin; istersen blaze/firecharge ile değiştirebiliriz
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
                 SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 5.0F, 1.0F);
         level.playSound(null, user.getX(), user.getY(), user.getZ(),
@@ -152,11 +141,6 @@ public class FireWandItem extends Item {
                     sl.explode(user, living.getX(), living.getY(), living.getZ(),
                             1.0F, Level.ExplosionInteraction.NONE);
                 }
-
-                // (opsiyonel) slowness sende vardı, bıraktım; istemezsen kaldır
-                living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 4));
-
-                // hafif geri itme
                 double resist = living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
                 double vertical = 0.5 * (1.0 - resist);
                 double horizontal = 2.0 * (1.0 - resist);

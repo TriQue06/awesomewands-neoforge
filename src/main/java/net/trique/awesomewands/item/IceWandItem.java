@@ -11,7 +11,6 @@ import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -34,12 +33,6 @@ public class IceWandItem extends Item {
 
     private static ItemAttributeModifiers createAttributeModifiers() {
         ItemAttributeModifiers.Builder b = ItemAttributeModifiers.builder();
-        b.add(Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 3.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
-        b.add(Attributes.ATTACK_SPEED,
-                new AttributeModifier(BASE_ATTACK_SPEED_ID, 0.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
         return b.build();
     }
 
@@ -70,7 +63,7 @@ public class IceWandItem extends Item {
         super.onUseTick(level, user, stack, remainingUseTicks);
         if (getUseDuration(stack, user) - remainingUseTicks == 1) {
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 3.0F, 1.0F);
+                    SoundEvents.AMETHYST_BLOCK_FALL, SoundSource.PLAYERS, 3.0F, 1.0F);
             level.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 3.0F, 1.0F);
         }
@@ -98,7 +91,7 @@ public class IceWandItem extends Item {
     private ItemStack findChargeResource(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.is(Items.ICE)) return s;
+            if (s.is(Items.AMETHYST_SHARD)) return s;
         }
         return ItemStack.EMPTY;
     }

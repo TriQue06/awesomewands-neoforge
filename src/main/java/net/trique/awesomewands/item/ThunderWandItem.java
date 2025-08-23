@@ -12,7 +12,6 @@ import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -35,12 +34,6 @@ public class ThunderWandItem extends Item {
 
     private static ItemAttributeModifiers createAttributeModifiers() {
         ItemAttributeModifiers.Builder b = ItemAttributeModifiers.builder();
-        b.add(Attributes.ATTACK_DAMAGE,
-                new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 3.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
-        b.add(Attributes.ATTACK_SPEED,
-                new AttributeModifier(BASE_ATTACK_SPEED_ID, 0.0F, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND);
         return b.build();
     }
 
@@ -99,7 +92,7 @@ public class ThunderWandItem extends Item {
     private ItemStack findChargeResource(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.is(Items.YELLOW_DYE)) return s;
+            if (s.is(Items.AMETHYST_SHARD)) return s;
         }
         return ItemStack.EMPTY;
     }
@@ -149,13 +142,18 @@ public class ThunderWandItem extends Item {
                 living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 4));
 
                 if (level instanceof ServerLevel sl) {
-                    LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(sl);
-                    if (bolt != null) {
-                        bolt.moveTo(living.getX(), living.getY(), living.getZ());
-                        if (user instanceof ServerPlayer sp) {
-                            bolt.setCause(sp);
+                    for (int i = 0; i < 3; i++) {
+                        double offsetX = living.getX() + (sl.random.nextDouble() - 0.5) * 3.0; // -1..+1
+                        double offsetZ = living.getZ() + (sl.random.nextDouble() - 0.5) * 3.0;
+
+                        LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(sl);
+                        if (bolt != null) {
+                            bolt.moveTo(offsetX, living.getY(), offsetZ);
+                            if (user instanceof ServerPlayer sp) {
+                                bolt.setCause(sp);
+                            }
+                            sl.addFreshEntity(bolt);
                         }
-                        sl.addFreshEntity(bolt);
                     }
                 }
 
