@@ -36,5 +36,7 @@ public class AwesomeWandsClient {
         event.registerSpriteSet(AwesomeParticles.THUNDER_BEAM.get(), AwesomeParticleTemplate.Provider::new);
         event.registerSpriteSet(AwesomeParticles.FIRE_BEAM.get(), AwesomeParticleTemplate.Provider::new);
         event.registerSpriteSet(AwesomeParticles.VAMPIRIC_BEAM.get(), AwesomeParticleTemplate.Provider::new);
+        event.registerSpriteSet(AwesomeParticles.HEAL_BEAM.get(), AwesomeParticleTemplate.Provider::new);
+        event.registerSpriteSet(AwesomeParticles.PSYCHIC_BEAM.get(), AwesomeParticleTemplate.Provider::new);
     }
 }

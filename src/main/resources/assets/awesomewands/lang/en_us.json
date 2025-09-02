@@ -6,5 +6,7 @@
   "item.awesomewands.ice_wand": "Ice Wand",
   "item.awesomewands.thunder_wand": "Thunder Wand",
   "item.awesomewands.fire_wand": "Fire Wand",
-  "item.awesomewands.vampiric_wand": "Vampiric Wand"
+  "item.awesomewands.vampiric_wand": "Vampiric Wand",
+  "item.awesomewands.heal_wand": "Heal Wand",
+  "item.awesomewands.psychic_wand": "Psychic Wand"
 }

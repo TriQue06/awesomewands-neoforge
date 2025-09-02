@@ -10,8 +10,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class AwesomeParticleTemplate extends HugeExplosionParticle {
     protected AwesomeParticleTemplate(ClientLevel level, double x, double y, double z, double quadSizeMultiplier, SpriteSet sprites) {
         super(level, x, y, z, quadSizeMultiplier, sprites);
-        this.lifetime = 16;
-        this.quadSize = 1.5F;
+        this.lifetime = 17;
+        this.quadSize = 2.0F;
         this.setSpriteFromAge(sprites);
     }
 

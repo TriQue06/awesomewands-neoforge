@@ -6,10 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.trique.awesomewands.AwesomeWands;
-import net.trique.awesomewands.item.wands.FireWandItem;
-import net.trique.awesomewands.item.wands.IceWandItem;
-import net.trique.awesomewands.item.wands.ThunderWandItem;
-import net.trique.awesomewands.item.wands.VampiricWandItem;
+import net.trique.awesomewands.item.wands.*;
 
 public class AwesomeItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(AwesomeWands.MODID);
@@ -26,8 +23,13 @@ public class AwesomeItems {
     public static final DeferredItem<Item> VAMPIRIC_WAND = ITEMS.register("vampiric_wand",
             () -> new VampiricWandItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).durability(64)));
 
+    public static final DeferredItem<Item> HEAL_WAND = ITEMS.register("heal_wand",
+            () -> new HealWandItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).durability(64)));
+
+    public static final DeferredItem<Item> PSYCHIC_WAND = ITEMS.register("psychic_wand",
+            () -> new PsychicWandItem(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).durability(64)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
-
 }
