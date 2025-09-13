@@ -17,7 +17,6 @@ public class AwesomeBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        blockWithItem(AwesomeBlocks.MAGICAL_CUBE);
     }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock) {

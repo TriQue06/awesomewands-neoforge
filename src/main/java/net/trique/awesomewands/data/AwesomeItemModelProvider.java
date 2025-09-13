@@ -32,6 +32,13 @@ public class AwesomeItemModelProvider extends ItemModelProvider {
         handheldItem(AwesomeItems.VAMPIRIC_WAND);
         handheldItem(AwesomeItems.HEAL_WAND);
         handheldItem(AwesomeItems.PSYCHIC_WAND);
+
+        handheldItem(AwesomeItems.ICE_RUNE);
+        handheldItem(AwesomeItems.SPARK_RUNE);
+        handheldItem(AwesomeItems.FIRE_RUNE);
+        handheldItem(AwesomeItems.WART_RUNE);
+        handheldItem(AwesomeItems.HEAL_RUNE);
+        handheldItem(AwesomeItems.ARCANE_RUNE);
     }
 
     private ItemModelBuilder handheldItem(DeferredItem<?> item) {

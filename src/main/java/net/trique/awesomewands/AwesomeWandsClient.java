@@ -26,7 +26,6 @@ public class AwesomeWandsClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            ItemBlockRenderTypes.setRenderLayer(AwesomeBlocks.MAGICAL_CUBE.get(), RenderType.translucent());
           });
     }
 

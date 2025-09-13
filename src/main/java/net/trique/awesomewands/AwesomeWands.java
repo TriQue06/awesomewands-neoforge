@@ -4,6 +4,7 @@ import net.trique.awesomewands.block.AwesomeBlocks;
 import net.trique.awesomewands.item.AwesomeCreativeModeTabs;
 import net.trique.awesomewands.item.AwesomeItems;
 import net.trique.awesomewands.particle.AwesomeParticles;
+import net.trique.awesomewands.util.AwesomeLootTableModifiers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -47,6 +48,7 @@ public class AwesomeWands {
         AwesomeItems.register(modEventBus);
         AwesomeCreativeModeTabs.register(modEventBus);
         AwesomeParticles.register(modEventBus);
+        AwesomeLootTableModifiers.register();
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

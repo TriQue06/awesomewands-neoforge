@@ -19,10 +19,6 @@ public class AwesomeBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(AwesomeWands.MODID);
 
-    public static final DeferredBlock<Block> MAGICAL_CUBE = registerBlock("magical_cube",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.XYLOPHONE).instabreak().sound(SoundType.NETHERRACK)));
-
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);

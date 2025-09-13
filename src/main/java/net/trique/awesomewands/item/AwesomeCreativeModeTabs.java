@@ -25,7 +25,12 @@ public class AwesomeCreativeModeTabs {
                         output.accept(AwesomeItems.VAMPIRIC_WAND);
                         output.accept(AwesomeItems.HEAL_WAND);
                         output.accept(AwesomeItems.PSYCHIC_WAND);
-                        output.accept(AwesomeBlocks.MAGICAL_CUBE);
+                        output.accept(AwesomeItems.ICE_RUNE);
+                        output.accept(AwesomeItems.SPARK_RUNE);
+                        output.accept(AwesomeItems.FIRE_RUNE);
+                        output.accept(AwesomeItems.WART_RUNE);
+                        output.accept(AwesomeItems.HEAL_RUNE);
+                        output.accept(AwesomeItems.ARCANE_RUNE);
                     }).build());
 
     public static void register(IEventBus eventBus) {

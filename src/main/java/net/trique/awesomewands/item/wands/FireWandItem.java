@@ -19,6 +19,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.trique.awesomewands.item.AwesomeItems;
 import net.trique.awesomewands.particle.AwesomeParticles;
 
 import java.util.HashSet;
@@ -36,11 +37,6 @@ public class FireWandItem extends Item {
 
     @Override
     public boolean isEnchantable(ItemStack stack) { return true; }
-
-    @Override
-    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return repair.is(Items.ICE);
-    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -90,7 +86,7 @@ public class FireWandItem extends Item {
     private ItemStack findChargeResource(Player player) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack s = player.getInventory().getItem(i);
-            if (s.is(Items.AMETHYST_SHARD)) return s;
+            if (s.is(AwesomeItems.FIRE_RUNE)) return s;
         }
         return ItemStack.EMPTY;
     }

@@ -17,7 +17,6 @@ public class AwesomeBlockLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(AwesomeBlocks.MAGICAL_CUBE.get());
     }
 
     @Override
