@@ -33,12 +33,18 @@ public class AwesomeItemModelProvider extends ItemModelProvider {
         handheldItem(AwesomeItems.HEAL_WAND);
         handheldItem(AwesomeItems.PSYCHIC_WAND);
 
-        handheldItem(AwesomeItems.ICE_RUNE);
-        handheldItem(AwesomeItems.SPARK_RUNE);
-        handheldItem(AwesomeItems.FIRE_RUNE);
-        handheldItem(AwesomeItems.WART_RUNE);
-        handheldItem(AwesomeItems.HEAL_RUNE);
-        handheldItem(AwesomeItems.ARCANE_RUNE);
+        generatedItem(AwesomeItems.ICE_RUNE);
+        generatedItem(AwesomeItems.SPARK_RUNE);
+        generatedItem(AwesomeItems.FIRE_RUNE);
+        generatedItem(AwesomeItems.WART_RUNE);
+        generatedItem(AwesomeItems.HEAL_RUNE);
+        generatedItem(AwesomeItems.ARCANE_RUNE);
+    }
+
+    private ItemModelBuilder generatedItem(DeferredItem<?> item) {
+        return withExistingParent(item.getId().getPath(),
+                ResourceLocation.parse("item/generated"))
+                .texture("layer0", modLoc("item/" + item.getId().getPath()));
     }
 
     private ItemModelBuilder handheldItem(DeferredItem<?> item) {
