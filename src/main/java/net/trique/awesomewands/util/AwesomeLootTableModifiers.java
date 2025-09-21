@@ -10,15 +10,10 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.trique.awesomewands.item.AwesomeItems;
 
-/**
- * Vanilla ganimet sandıklarına wand ekler.
- * İstenilen sandıklarda %10 ihtimalle 1 adet wand düşürür.
- */
 public final class AwesomeLootTableModifiers {
 
     private AwesomeLootTableModifiers() {}
 
-    // --- Vanilla loot table id'leri ---
     private static final ResourceLocation IGLOO_CHEST       = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo_chest");
     private static final ResourceLocation DESERT_PYRAMID    = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/desert_pyramid");
     private static final ResourceLocation MINESHAFT         = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/abandoned_mineshaft");
@@ -26,12 +21,10 @@ public final class AwesomeLootTableModifiers {
     private static final ResourceLocation JUNGLE_TEMPLE     = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/jungle_temple");
     private static final ResourceLocation END_CITY_TREASURE = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/end_city_treasure");
 
-    // Global event bus'a dinleyici kaydı (mod ana sınıfından çağır)
     public static void register() {
         NeoForge.EVENT_BUS.addListener(AwesomeLootTableModifiers::onLootTableLoad);
     }
 
-    // Ortak havuz oluşturucu: tek roll + şans koşullu giriş
     private static LootPool makePoolWithChance(LootPoolEntryContainer.Builder<?> entryBuilder, float chance) {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1))
@@ -39,7 +32,6 @@ public final class AwesomeLootTableModifiers {
                 .build();
     }
 
-    // Event handler
     private static void onLootTableLoad(final LootTableLoadEvent event) {
         final ResourceLocation id = event.getName();
         if (id == null) return;
