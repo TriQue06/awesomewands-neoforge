@@ -11,7 +11,6 @@ import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.trique.awesomewands.item.AwesomeItems;
 
 public final class AwesomeLootTableModifiers {
-
     private AwesomeLootTableModifiers() {}
 
     private static final ResourceLocation IGLOO_CHEST       = ResourceLocation.fromNamespaceAndPath("minecraft", "chests/igloo_chest");
